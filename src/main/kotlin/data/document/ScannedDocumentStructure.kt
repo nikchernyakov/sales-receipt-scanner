@@ -18,7 +18,6 @@ class ScannedDocument(override val id: String, override val content: DocumentCon
         content.lines.forEach { stringBuilder.append("  ").append(it.toString()).append("\n")}
 
         return stringBuilder.toString()
-
     }
 
     fun toDocumentString(): String {

@@ -4,7 +4,7 @@ import data.document.PurchaseItem
 import data.document.ScannedLine
 import utils.findItemPriceInEndOfLine
 
-class ItemCondidate1LinePattern() : ItemCondidatePattern {
+class ItemCandidate1LinePattern() : ItemCandidatePattern {
     override fun getLineCount(): Int {
         return 1
     }
