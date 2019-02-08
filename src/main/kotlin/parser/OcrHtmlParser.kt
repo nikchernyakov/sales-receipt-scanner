@@ -20,11 +20,11 @@ object OcrHtmlParser {
                 .map {
                     val words = it.getElementsByClass("ocrx_word")
                             .stream()
-                            .map { ScannedWord(it.id(), WordContent(it.html())) }
+                            .map { ScannedWord(it.id(), it.html()) }
                             .collect(Collectors.toList())
-                    ScannedLine(it.id(), LineContent(words))
+                    ScannedLine(it.id(), words)
                 }
                 .collect(Collectors.toList())
-        return ScannedDocument(documentName ?: "document", DocumentContent(scannedLines))
+        return ScannedDocument(documentName ?: "document", scannedLines)
     }
 }

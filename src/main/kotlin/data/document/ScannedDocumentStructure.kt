@@ -3,19 +3,18 @@ package data.document
 import java.lang.StringBuilder
 
 /* ScannedElement */
-interface ScannedElement {
+interface ScannedElement<T> {
     val id: String
-    val content: ElementContent
+    val content: T
 }
 
-interface ElementContent
-
 /* ScannedDocument */
-class ScannedDocument(override val id: String, override val content: DocumentContent) : ScannedElement {
+class ScannedDocument(override val id: String,
+                      override val content: MutableList<ScannedLine>) : ScannedElement<MutableList<ScannedLine>> {
     override fun toString(): String {
         val stringBuilder = StringBuilder()
         stringBuilder.append("ScannedDocument(id='$id'):\n")
-        content.lines.forEach { stringBuilder.append("  ").append(it.toString()).append("\n")}
+        content.forEach { stringBuilder.append("  ").append(it.toString()).append("\n")}
 
         return stringBuilder.toString()
     }
@@ -23,41 +22,36 @@ class ScannedDocument(override val id: String, override val content: DocumentCon
     fun toDocumentString(): String {
         val stringBuilder = StringBuilder()
         stringBuilder.append("ScannedDocument(id='$id'):\n")
-        content.lines.forEach { stringBuilder.append("  ").append(it.toDocumentString()).append("\n")}
+        content.forEach { stringBuilder.append("  ").append(it.toDocumentString()).append("\n")}
 
         return stringBuilder.toString()
     }
 }
 
-class DocumentContent(val lines: MutableList<ScannedLine>) : ElementContent
-
 /* ScannedLine */
-class ScannedLine(override val id: String, override val content: LineContent) : ScannedElement {
+class ScannedLine(override val id: String,
+                  override val content: MutableList<ScannedWord>) : ScannedElement<MutableList<ScannedWord>> {
     override fun toString(): String {
         val stringBuilder = StringBuilder()
         stringBuilder.append("Line(id='$id'):\n")
-        content.words.forEach { stringBuilder.append("    ").append(it.toString()).append("\n") }
+        content.forEach { stringBuilder.append("    ").append(it.toString()).append("\n") }
         return stringBuilder.toString()
     }
 
     fun toDocumentString(): String {
         val stringBuilder = StringBuilder()
-        content.words.forEach { stringBuilder.append("  ").append(it.toDocumentString())}
+        content.forEach { stringBuilder.append("  ").append(it.toDocumentString())}
         return stringBuilder.toString()
     }
 }
 
-class LineContent(val words: MutableList<ScannedWord>) : ElementContent
-
 /* ScannedWord */
-class ScannedWord(override val id: String, override val content: WordContent) : ScannedElement {
+class ScannedWord(override val id: String, override val content: String) : ScannedElement<String> {
     override fun toString(): String {
-        return "Word(id='$id'): ${content.text}"
+        return "Word(id='$id'): $content"
     }
 
     fun toDocumentString(): String {
-        return content.text
+        return content
     }
 }
-
-class WordContent(val text: String) : ElementContent
