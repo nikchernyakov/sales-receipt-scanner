@@ -3,6 +3,11 @@ package analyze
 import data.document.*
 
 class ScannedDocumentAnalyzer {
+
+    fun analyzeDocument(document: ScannedDocument): List<AnalyzedBlock> {
+        return document.content.map { analyzeLine(it) }
+    }
+
     fun analyzeLine(line: ScannedLine): AnalyzedBlock {
         val groups = ArrayList<AnalyzedGroup>()
         var currentGroup: AnalyzedGroup? = null
