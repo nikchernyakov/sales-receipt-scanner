@@ -2,21 +2,21 @@ package data.document
 
 class AnalyzedDocument(var blocks: List<AnalyzedBlock>)
 
-class AnalyzedBlock(var groups: List<AnalyzedGroup>) {
+class AnalyzedBlock(var tokens: List<Token>) {
     override fun toString(): String {
-        return "AnalyzedBlock(groups=$groups)"
+        return "AnalyzedBlock(tokens=$tokens)"
     }
 }
 
-class AnalyzedGroup(var groupType: AnalyzedGroupType) {
+class Token(var type: TokenType) {
     var content: String = ""
 
     override fun toString(): String {
-        return "AnalyzedGroup(groupType=$groupType, content='$content')"
+        return "Token(type=$type, content='$content')"
     }
 }
 
-enum class AnalyzedGroupType {
+enum class TokenType {
     KEY,
     PRICE
 }

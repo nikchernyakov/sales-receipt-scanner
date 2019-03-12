@@ -14,7 +14,7 @@ class TextParser {
     }
 
     fun parseLine(line: String): ScannedLine {
-        return ScannedLine("line_1",
+        return ScannedLine("line",
                 line.split(" ").asSequence().mapIndexed { index, s ->
                     ScannedWord("word_$index", s)
                 }.toMutableList())

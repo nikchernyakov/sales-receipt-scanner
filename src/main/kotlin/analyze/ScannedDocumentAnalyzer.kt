@@ -9,35 +9,35 @@ class ScannedDocumentAnalyzer {
     }
 
     fun analyzeLine(line: ScannedLine): AnalyzedBlock {
-        val groups = ArrayList<AnalyzedGroup>()
-        var currentGroup: AnalyzedGroup? = null
+        val tokens = ArrayList<Token>()
+        var currentToken: Token? = null
         line.content.forEach {
-            val wordGroupType = resolveWordGroupType(it)
-            if (currentGroup == null || !isWordBelongToGroup(wordGroupType, currentGroup!!)) {
-                if (currentGroup != null) groups.add(currentGroup!!)
-                currentGroup = AnalyzedGroup(wordGroupType)
+            val wordGroupType = resolveWordTokenType(it)
+            if (currentToken == null || !isWordBelongToToken(wordGroupType, currentToken!!)) {
+                if (currentToken != null) tokens.add(currentToken!!)
+                currentToken = Token(wordGroupType)
             }
-            currentGroup!!.content += (if (currentGroup!!.content.isEmpty()) "" else " ") + it.content
+            currentToken!!.content += (if (currentToken!!.content.isEmpty()) "" else " ") + it.content
         }
-        if (currentGroup != null) groups.add(currentGroup!!)
-        return AnalyzedBlock(groups)
+        if (currentToken != null) tokens.add(currentToken!!)
+        return AnalyzedBlock(tokens)
     }
 
-    private fun isWordBelongToGroup(wordGroupType: AnalyzedGroupType, group: AnalyzedGroup): Boolean {
-        return when (group.groupType) {
-            AnalyzedGroupType.KEY -> {
-                wordGroupType == AnalyzedGroupType.KEY
+    private fun isWordBelongToToken(wordTokenType: TokenType, token: Token): Boolean {
+        return when (token.type) {
+            TokenType.KEY -> {
+                wordTokenType == TokenType.KEY
             }
-            AnalyzedGroupType.PRICE -> {
+            else -> {
                 false
             }
         }
     }
 
-    fun resolveWordGroupType(word: ScannedWord): AnalyzedGroupType {
+    fun resolveWordTokenType(word: ScannedWord): TokenType {
         return when (true) {
-            checkPriceType(word.content) -> AnalyzedGroupType.PRICE
-            else -> AnalyzedGroupType.KEY
+            checkPriceType(word.content) -> TokenType.PRICE
+            else -> TokenType.KEY
         }
     }
 
