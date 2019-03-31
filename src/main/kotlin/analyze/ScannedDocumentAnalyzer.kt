@@ -4,11 +4,11 @@ import data.document.*
 
 class ScannedDocumentAnalyzer {
 
-    fun analyzeDocument(document: ScannedDocument): List<AnalyzedBlock> {
+    fun analyzeDocument(document: ScannedDocument): List<AnalyzedLine> {
         return document.content.map { analyzeLine(it) }
     }
 
-    fun analyzeLine(line: ScannedLine): AnalyzedBlock {
+    fun analyzeLine(line: ScannedLine): AnalyzedLine {
         val tokens = ArrayList<Token>()
         var currentToken: Token? = null
         line.content.forEach {
@@ -20,7 +20,7 @@ class ScannedDocumentAnalyzer {
             currentToken!!.content += (if (currentToken!!.content.isEmpty()) "" else " ") + it.content
         }
         if (currentToken != null) tokens.add(currentToken!!)
-        return AnalyzedBlock(tokens)
+        return AnalyzedLine(tokens)
     }
 
     private fun isWordBelongToToken(wordTokenType: TokenType, token: Token): Boolean {

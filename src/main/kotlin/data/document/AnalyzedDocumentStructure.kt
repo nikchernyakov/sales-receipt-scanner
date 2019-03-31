@@ -1,10 +1,10 @@
 package data.document
 
-class AnalyzedDocument(var blocks: List<AnalyzedBlock>)
+class AnalyzedDocument(var lines: List<AnalyzedLine>)
 
-class AnalyzedBlock(var tokens: List<Token>) {
+class AnalyzedLine(var tokens: List<Token>) {
     override fun toString(): String {
-        return "AnalyzedBlock(tokens=$tokens)"
+        return "AnalyzedLine(tokens=$tokens)"
     }
 }
 
@@ -18,5 +18,7 @@ class Token(var type: TokenType) {
 
 enum class TokenType {
     KEY,
-    PRICE
+    PRICE,
+    TRASH,
+    NUMBER
 }
