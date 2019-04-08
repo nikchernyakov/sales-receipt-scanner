@@ -4,7 +4,22 @@ import data.document.*
 
 class TokenAnalyzer {
 
-    fun findNextItem(lineIterator: ListIterator<AnalyzedLine>): PurchaseItem? {
+    fun analyzeItems(document: AnalyzedDocument): List<PurchaseItem> {
+        val lineIterator = document.lines.listIterator()
+        val items = ArrayList<PurchaseItem>()
+        var nextItem: PurchaseItem?
+
+        do {
+            nextItem = findNextItem(lineIterator)
+            if (nextItem != null) {
+                items.add(nextItem)
+            }
+
+        } while (nextItem != null)
+        return items
+    }
+
+    private fun findNextItem(lineIterator: ListIterator<AnalyzedLine>): PurchaseItem? {
         val linesSelection = ArrayList<AnalyzedLine>()
         var currentLine: AnalyzedLine
         // Get next lines
@@ -27,7 +42,7 @@ class TokenAnalyzer {
         return null
     }
 
-    fun getPurchaseItem(price: Float, linesSelection: List<AnalyzedLine>): PurchaseItem? {
+    private fun getPurchaseItem(price: Float, linesSelection: List<AnalyzedLine>): PurchaseItem? {
         val itemCount = 1
         var itemName: String? = null
 
@@ -46,27 +61,12 @@ class TokenAnalyzer {
         }
     }
 
-    fun findPriceInLine(line: AnalyzedLine): Token? {
+    private fun findPriceInLine(line: AnalyzedLine): Token? {
         for (token in line.tokens) {
             if (token.type == TokenType.PRICE) {
                 return token
             }
         }
         return null
-    }
-
-    fun analyzeItems(document: AnalyzedDocument): List<PurchaseItem> {
-        val lineIterator = document.lines.listIterator()
-        val items = ArrayList<PurchaseItem>()
-        var nextItem: PurchaseItem?
-
-        do {
-            nextItem = findNextItem(lineIterator)
-            if (nextItem != null) {
-                items.add(nextItem)
-            }
-
-        } while (nextItem != null)
-        return items
     }
 }

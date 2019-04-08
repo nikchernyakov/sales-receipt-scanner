@@ -20,5 +20,6 @@ enum class TokenType {
     KEY,
     PRICE,
     TRASH,
-    NUMBER
+    NUMBER,
+    COUNT
 }

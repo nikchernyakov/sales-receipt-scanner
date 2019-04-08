@@ -1,6 +1,7 @@
 package analyze
 
 import data.document.*
+import utils.isNumber
 
 class ScannedDocumentAnalyzer {
 
@@ -37,6 +38,7 @@ class ScannedDocumentAnalyzer {
     fun resolveWordTokenType(word: ScannedWord): TokenType {
         return when (true) {
             checkPriceType(word.content) -> TokenType.PRICE
+            checkCountType(word.content) -> TokenType.COUNT
             else -> TokenType.KEY
         }
     }
@@ -51,6 +53,22 @@ class ScannedDocumentAnalyzer {
                 if (!element.isDigit()) return false
             }
         }
+        return true
+    }
+
+    fun checkCountType(text: String): Boolean {
+        if (text.length < 3) {
+            return isNumber(text)
+        }
+
+        text.forEachIndexed { index, element ->
+            if (index == text.length - 4) {
+                if (element != '.') return false
+            } else {
+                if (!element.isDigit()) return false
+            }
+        }
+
         return true
     }
 }
