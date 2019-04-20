@@ -15,8 +15,18 @@ class Box(var startPoint: Point, var endPoint: Point) {
     }
 }
 
-class Tab(var tabIndex: Int, var tabCount: Int) {
+class Tab(var index: Int, _count: Int) {
+
+    var count: Int = _count
+        set(value) {
+            field = value
+            endIndex = index + value
+        }
+
+    var endIndex = index + _count
+
+
     override fun toString(): String {
-        return "Tab($tabIndex, $tabCount)"
+        return "Tab($index, $count)"
     }
 }

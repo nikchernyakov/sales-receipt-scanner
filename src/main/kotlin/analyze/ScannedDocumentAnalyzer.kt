@@ -16,12 +16,18 @@ class ScannedDocumentAnalyzer {
             val wordGroupType = resolveWordTokenType(it)
             if (currentToken == null || !isWordBelongToToken(wordGroupType, currentToken!!)) {
                 if (currentToken != null) tokens.add(currentToken!!)
-                currentToken = Token(wordGroupType)
+                currentToken = Token(wordGroupType, it.tab)
             }
-            currentToken!!.content += (if (currentToken!!.content.isEmpty()) "" else " ") + it.content
+            addWordToToken(currentToken!!, it)
         }
         if (currentToken != null) tokens.add(currentToken!!)
         return AnalyzedLine(tokens)
+    }
+
+    private fun addWordToToken(token: Token, word: ScannedWord) {
+        token.content += (if (token.content.isEmpty()) "" else " ") + word.content
+        // Get full size of tab from token.tab.index to word.tab.endIndex
+        token.tab.count = word.tab.endIndex - token.tab.index
     }
 
     private fun isWordBelongToToken(wordTokenType: TokenType, token: Token): Boolean {

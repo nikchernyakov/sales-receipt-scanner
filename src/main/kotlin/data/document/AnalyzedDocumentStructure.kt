@@ -8,11 +8,11 @@ class AnalyzedLine(var tokens: List<Token>) {
     }
 }
 
-class Token(var type: TokenType) {
+class Token(var type: TokenType, var tab: Tab) {
     var content: String = ""
 
     override fun toString(): String {
-        return "Token(type=$type, content='$content')"
+        return "Token($type, $tab, '$content')"
     }
 }
 
