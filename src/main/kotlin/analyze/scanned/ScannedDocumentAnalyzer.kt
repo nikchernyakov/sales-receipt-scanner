@@ -8,11 +8,12 @@ abstract class ScannedDocumentAnalyzer<T : Token> {
         return AnalyzedDocument(document.content.map { analyzeLine(it) })
     }
 
-    fun analyzeLine(line: ScannedLine): AnalyzedLine<T> {
+    private fun analyzeLine(line: ScannedLine): AnalyzedLine<T> {
         val tokens = ArrayList<T>()
         analyzeWords(line.content.listIterator(), tokens)
         return AnalyzedLine(tokens)
     }
 
-    abstract fun analyzeWords(listIterator: MutableListIterator<ScannedWord>, tokens: ArrayList<T>)
+    protected abstract fun analyzeWords(lineIterator: MutableListIterator<ScannedWord>,
+                                        tokens: ArrayList<T>)
 }

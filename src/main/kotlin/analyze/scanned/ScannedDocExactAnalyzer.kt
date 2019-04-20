@@ -2,15 +2,14 @@ package analyze.scanned
 
 import analyze.resolver.StrongTypeResolver
 import data.document.*
-import utils.isNumber
 
 class ScannedDocExactAnalyzer : ScannedDocumentAnalyzer<Token>() {
 
-    override fun analyzeWords(listIterator: MutableListIterator<ScannedWord>, tokens: ArrayList<Token>) {
+    override fun analyzeWords(lineIterator: MutableListIterator<ScannedWord>, tokens: ArrayList<Token>) {
         var currentToken: Token? = null
-        while (listIterator.hasNext()) {
-            val currentWord = listIterator.next()
-            val wordGroupType = StrongTypeResolver.resolveWord(currentWord, listIterator)
+        while (lineIterator.hasNext()) {
+            val currentWord = lineIterator.next()
+            val wordGroupType = StrongTypeResolver.resolveWord(currentWord, lineIterator)
             if (currentToken == null || !isWordBelongToToken(wordGroupType, currentToken)) {
                 if (currentToken != null) tokens.add(currentToken)
                 currentToken = Token(wordGroupType, currentWord.tab)

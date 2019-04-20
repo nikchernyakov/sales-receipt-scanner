@@ -33,7 +33,7 @@ class Tess4jTest {
         val ocrHtmlContent = tesseractService.doOcr(imageFile)
         val scannedDocument = OcrHtmlParser.parseOcrHtml(ocrHtmlContent)
         println(scannedDocument.toString())
-        var analyzedDocument = scannedDocumentAnalyzer.analyzeDocument(scannedDocument)
+        val analyzedDocument = scannedDocumentAnalyzer.analyzeDocument(scannedDocument)
         println(analyzedDocument.toString())
     }
 
@@ -43,8 +43,8 @@ class Tess4jTest {
         val ocrHtmlContent = tesseractService.doOcr(imageFile)
         val scannedDocument = OcrHtmlParser.parseOcrHtml(ocrHtmlContent)
         println(scannedDocument.toString())
-        var analyzedDocument = scannedDocumentAnalyzer.analyzeDocument(scannedDocument)
-        var result = tokenAnalyzer.analyzeItems(analyzedDocument)
+        val analyzedDocument = scannedDocumentAnalyzer.analyzeDocument(scannedDocument)
+        val result = tokenAnalyzer.analyzeItems(analyzedDocument)
         result.forEach { println(it.toString()) }
     }
 }
