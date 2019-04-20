@@ -1,14 +1,15 @@
 package analyze
 
-import data.document.AnalyzedDocument
+import analyze.scanned.ScannedDocExactAnalyzer
+import analyze.token.TokenExactAnalyzer
 import org.junit.Test
 import parser.TextParser
 
 class TokenAnalyzerTest {
 
-    private val scannedDocumentAnalyzer = ScannedDocumentAnalyzer()
+    private val scannedDocumentAnalyzer = ScannedDocExactAnalyzer()
     private val textParser = TextParser()
-    private val tokenAnalyzer = TokenAnalyzer()
+    private val tokenAnalyzer = TokenExactAnalyzer()
 
     @Test
     fun test1() {

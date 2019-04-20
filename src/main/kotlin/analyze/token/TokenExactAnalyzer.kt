@@ -1,10 +1,10 @@
-package analyze
+package analyze.token
 
 import data.document.*
 
-class TokenAnalyzer {
+class TokenExactAnalyzer : TokenAnalyzer<Token> {
 
-    fun analyzeItems(document: AnalyzedDocument): List<PurchaseItem> {
+    override fun analyzeItems(document: AnalyzedDocument<Token>): List<PurchaseItem> {
         val lineIterator = document.lines.listIterator()
         val items = ArrayList<PurchaseItem>()
         var nextItem: PurchaseItem?
@@ -19,9 +19,9 @@ class TokenAnalyzer {
         return items
     }
 
-    private fun findNextItem(lineIterator: ListIterator<AnalyzedLine>): PurchaseItem? {
-        val linesSelection = ArrayList<AnalyzedLine>()
-        var currentLine: AnalyzedLine
+    private fun findNextItem(lineIterator: ListIterator<AnalyzedLine<Token>>): PurchaseItem? {
+        val linesSelection = ArrayList<AnalyzedLine<Token>>()
+        var currentLine: AnalyzedLine<Token>
         // Get next lines
         while (lineIterator.hasNext()) {
             currentLine = lineIterator.next()
@@ -42,7 +42,7 @@ class TokenAnalyzer {
         return null
     }
 
-    private fun getPurchaseItem(price: Float, linesSelection: List<AnalyzedLine>): PurchaseItem? {
+    private fun getPurchaseItem(price: Float, linesSelection: List<AnalyzedLine<Token>>): PurchaseItem? {
         val itemCount = 1
         var itemName: String? = null
 
@@ -61,7 +61,7 @@ class TokenAnalyzer {
         }
     }
 
-    private fun findPriceInLine(line: AnalyzedLine): Token? {
+    private fun findPriceInLine(line: AnalyzedLine<Token>): Token? {
         for (token in line.tokens) {
             if (token.type == TokenType.PRICE) {
                 return token
