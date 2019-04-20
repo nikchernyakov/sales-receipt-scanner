@@ -5,7 +5,7 @@ import data.document.TokenType
 import utils.isNumber
 
 object StrongTypeResolver : TypeResolver<TokenType> {
-    override fun resolveWord(word: ScannedWord, lineIterator: MutableListIterator<ScannedWord>): TokenType {
+    override fun resolveWord(word: ScannedWord): TokenType {
         return when (true) {
             checkPriceType(word.content) -> TokenType.PRICE
             checkCountType(word.content) -> TokenType.COUNT

@@ -2,21 +2,36 @@ package analyze.scanned
 
 import analyze.resolver.StrongTypeResolver
 import data.document.*
+import utils.CoordinateUtils
 
 class ScannedDocExactAnalyzer : ScannedDocumentAnalyzer<Token>() {
 
-    override fun analyzeWords(lineIterator: MutableListIterator<ScannedWord>, tokens: ArrayList<Token>) {
+    override fun analyzeWords(line: ScannedLine): List<AnalyzedElement<Token>> {
+        val tokens = ArrayList<Token>()
         var currentToken: Token? = null
-        while (lineIterator.hasNext()) {
-            val currentWord = lineIterator.next()
-            val wordGroupType = StrongTypeResolver.resolveWord(currentWord, lineIterator)
-            if (currentToken == null || !isWordBelongToToken(wordGroupType, currentToken)) {
-                if (currentToken != null) tokens.add(currentToken)
-                currentToken = Token(wordGroupType, currentWord.tab)
+        line.content.forEach {
+            // Resolve token
+            val wordGroupType = StrongTypeResolver.resolveWord(it)
+
+            // Check if can't add to previous token
+            if (currentToken == null || !isWordBelongToToken(wordGroupType, currentToken!!)) {
+                // Create next token
+                if (currentToken != null) tokens.add(currentToken!!)
+                currentToken = Token(wordGroupType, it.tab)
             }
-            addWordToToken(currentToken, currentWord)
+            addWordToToken(currentToken!!, it)
         }
-        if (currentToken != null) tokens.add(currentToken)
+        // Add last token
+        if (currentToken != null) tokens.add(currentToken!!)
+
+        // Create elements
+        val elements = tokens.map {
+            AnalyzedElement(it)
+        }
+        elements.forEachIndexed { index, element ->
+            CoordinateUtils.fillNeighbors(index, element, elements)
+        }
+        return elements
     }
 
     private fun addWordToToken(token: Token, word: ScannedWord) {

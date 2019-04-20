@@ -30,3 +30,20 @@ class Tab(var index: Int, _count: Int) {
         return "Tab($index, $count)"
     }
 }
+
+class Neighbor<T> {
+    var previous: T? = null
+    var next: T? = null
+
+    fun hasPrevious(): Boolean {
+        return previous != null
+    }
+
+    fun hasNext(): Boolean {
+        return next != null
+    }
+}
+
+interface InlineElement<T> {
+    val neighbor: Neighbor<T>
+}

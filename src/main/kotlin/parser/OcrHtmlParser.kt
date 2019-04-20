@@ -4,6 +4,7 @@ import data.document.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import utils.CoordinateUtils
 import utils.findBox
 import utils.findDocumentName
 import java.util.stream.Collectors
@@ -48,13 +49,19 @@ object OcrHtmlParser {
                 .stream()
                 .map { parseHtmlWord(it, documentBox) }
                 .collect(Collectors.toList())
+
+        // Fill neighbors
+        words.forEachIndexed { index, word ->
+            CoordinateUtils.fillNeighbors(index, word, words)
+        }
         return ScannedLine(element.id(), words, parseBox(element))
     }
 
     private fun parseHtmlWord(element: Element, documentBox: Box): ScannedWord {
         val wordBox = parseBox(element)
         return ScannedWord(element.id(),
-                if (element.children().size > 0) element.child(0).html() else element.html(),
+                if (element.children().size > 0) element.child(0).html().trim()
+                else element.html().trim(),
                 wordBox, getTab(wordBox, documentBox))
     }
 

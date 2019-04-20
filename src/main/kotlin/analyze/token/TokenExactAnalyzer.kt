@@ -47,9 +47,9 @@ class TokenExactAnalyzer : TokenAnalyzer<Token> {
         var itemName: String? = null
 
         for (line in linesSelection) {
-            for (token in line.tokens) {
-                if (token.type == TokenType.KEY) {
-                    itemName = token.content
+            for (element in line.elements) {
+                if (element.token.type == TokenType.KEY) {
+                    itemName = element.token.content
                 }
             }
         }
@@ -62,9 +62,9 @@ class TokenExactAnalyzer : TokenAnalyzer<Token> {
     }
 
     private fun findPriceInLine(line: AnalyzedLine<Token>): Token? {
-        for (token in line.tokens) {
-            if (token.type == TokenType.PRICE) {
-                return token
+        for (element in line.elements) {
+            if (element.token.type == TokenType.PRICE) {
+                return element.token
             }
         }
         return null

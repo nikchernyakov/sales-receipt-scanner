@@ -2,18 +2,27 @@ package analyze.scanned
 
 import analyze.resolver.SoftTypeResolver
 import analyze.resolver.StrongTypeResolver
-import data.document.*
+import data.document.AnalyzedElement
+import data.document.ScannedLine
+import data.document.VarToken
+import utils.CoordinateUtils
 
 class ScannedDocVarAnalyzer : ScannedDocumentAnalyzer<VarToken>() {
 
-    override fun analyzeWords(lineIterator: MutableListIterator<ScannedWord>, tokens: ArrayList<VarToken>) {
-        var currentToken: VarToken
-        while (lineIterator.hasNext()) {
-            val currentWord = lineIterator.next()
-            val wordGroupType = StrongTypeResolver.resolveWord(currentWord, lineIterator)
-            val candidates = SoftTypeResolver.resolveWord(currentWord, lineIterator)
-            currentToken = VarToken(wordGroupType, currentWord.tab, candidates)
-            tokens.add(currentToken)
+    override fun analyzeWords(line: ScannedLine): List<AnalyzedElement<VarToken>> {
+        val elements = createElements(line)
+        line.content.forEachIndexed { index, word ->
+            val currentElement = elements[index]
+            CoordinateUtils.fillNeighbors(index, currentElement, elements)
+
+            val wordGroupType = StrongTypeResolver.resolveWord(word)
+            val candidates = SoftTypeResolver.resolveWord(word)
+            currentElement.token = VarToken(wordGroupType, word.tab, candidates)
         }
+        return elements
+    }
+
+    protected fun createElements(line: ScannedLine): List<AnalyzedElement<VarToken>> {
+        return line.content.map { AnalyzedElement(VarToken()) }
     }
 }

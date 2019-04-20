@@ -9,11 +9,9 @@ abstract class ScannedDocumentAnalyzer<T : Token> {
     }
 
     private fun analyzeLine(line: ScannedLine): AnalyzedLine<T> {
-        val tokens = ArrayList<T>()
-        analyzeWords(line.content.listIterator(), tokens)
-        return AnalyzedLine(tokens)
+        return AnalyzedLine(analyzeWords(line))
     }
 
-    protected abstract fun analyzeWords(lineIterator: MutableListIterator<ScannedWord>,
-                                        tokens: ArrayList<T>)
+    protected abstract fun analyzeWords(line: ScannedLine): List<AnalyzedElement<T>>
+
 }

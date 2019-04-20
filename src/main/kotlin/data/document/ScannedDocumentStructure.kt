@@ -53,7 +53,9 @@ class ScannedLine(override val id: String,
 class ScannedWord(override val id: String,
                   override val content: String,
                   override val box: Box,
-                  val tab: Tab) : ScannedElement<String> {
+                  val tab: Tab) : ScannedElement<String>, InlineElement<ScannedWord> {
+    override val neighbor = Neighbor<ScannedWord>()
+
     override fun toString(): String {
         return "Word('$id', $box, $tab): $content"
     }
