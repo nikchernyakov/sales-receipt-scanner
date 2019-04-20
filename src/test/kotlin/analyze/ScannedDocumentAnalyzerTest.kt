@@ -23,12 +23,12 @@ class ScannedDocumentAnalyzerTest {
 
     @Test
     fun analyzeLineTest() {
-        var line = textParser.parseLine("Сок ябл добрый 50.12")
+        /*var line = textParser.parseLine("Сок ябл добрый 50.12")
         println(scannedDocumentAnalyzer.analyzeLine(line))
         line = textParser.parseLine("Яблоки 12 кг 100.00")
         println(scannedDocumentAnalyzer.analyzeLine(line))
         line = textParser.parseLine("100.00 Пакет")
-        println(scannedDocumentAnalyzer.analyzeLine(line))
+        println(scannedDocumentAnalyzer.analyzeLine(line))*/
     }
 
 }

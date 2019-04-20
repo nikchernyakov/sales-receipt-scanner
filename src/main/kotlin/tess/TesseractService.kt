@@ -11,7 +11,6 @@ class TesseractService {
 
     init {
         tesseractInstance.setLanguage("rus")
-        tesseractInstance.setDatapath("src\\test\\resources\\tess4j\\data")
         tesseractInstance.setHocr(true)
     }
 

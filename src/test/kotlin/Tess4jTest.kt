@@ -20,6 +20,6 @@ class Tess4jTest {
         val imageFile = File(IMAGE_ROOT_PATH + "sales-receipt-img-4/1-2.jpg")
         val ocrHtmlContent = tesseractService.doOcr(imageFile)
         val scannedDocument = OcrHtmlParser.parseOcrHtml(ocrHtmlContent)
-        println(scannedDocument.toDocumentString())
+        println(scannedDocument.toString())
     }
 }

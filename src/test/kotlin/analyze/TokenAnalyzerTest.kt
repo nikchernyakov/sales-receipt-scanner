@@ -12,12 +12,12 @@ class TokenAnalyzerTest {
 
     @Test
     fun test1() {
-        var document = textParser.parseText(
+        /*var document = textParser.parseText(
                 """Сок ябл добрый 50.12
                   |Молоко 30.49
                 """.trimMargin())
         var analyzedDocument = AnalyzedDocument(scannedDocumentAnalyzer.analyzeDocument(document))
         var result = tokenAnalyzer.analyzeItems(analyzedDocument)
-        result.forEach { println(it.toString()) }
+        result.forEach { println(it.toString()) }*/
     }
 }

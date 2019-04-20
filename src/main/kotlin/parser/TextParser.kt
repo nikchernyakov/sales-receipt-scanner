@@ -6,7 +6,7 @@ import data.document.ScannedWord
 
 class TextParser {
 
-    fun parseText(text: String): ScannedDocument {
+    /*fun parseText(text: String): ScannedDocument {
         val lines = text
                 .split("\n")
                 .map { parseLine(it) }.toMutableList()
@@ -18,5 +18,5 @@ class TextParser {
                 line.split(" ").asSequence().mapIndexed { index, s ->
                     ScannedWord("word_$index", s)
                 }.toMutableList())
-    }
+    }*/
 }

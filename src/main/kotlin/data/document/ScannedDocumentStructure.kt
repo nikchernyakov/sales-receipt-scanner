@@ -6,11 +6,14 @@ import java.lang.StringBuilder
 interface ScannedElement<T> {
     val id: String
     val content: T
+    val box: Box
 }
 
 /* ScannedDocument */
 class ScannedDocument(override val id: String,
-                      override val content: MutableList<ScannedLine>) : ScannedElement<MutableList<ScannedLine>> {
+                      override val content: MutableList<ScannedLine>,
+                      override val box: Box) : ScannedElement<MutableList<ScannedLine>> {
+
     override fun toString(): String {
         val stringBuilder = StringBuilder()
         stringBuilder.append("ScannedDocument(id='$id'):\n")
@@ -30,7 +33,8 @@ class ScannedDocument(override val id: String,
 
 /* ScannedLine */
 class ScannedLine(override val id: String,
-                  override val content: MutableList<ScannedWord>) : ScannedElement<MutableList<ScannedWord>> {
+                  override val content: MutableList<ScannedWord>,
+                  override val box: Box) : ScannedElement<MutableList<ScannedWord>> {
     override fun toString(): String {
         val stringBuilder = StringBuilder()
         stringBuilder.append("Line(id='$id'):\n")
@@ -46,9 +50,12 @@ class ScannedLine(override val id: String,
 }
 
 /* ScannedWord */
-class ScannedWord(override val id: String, override val content: String) : ScannedElement<String> {
+class ScannedWord(override val id: String,
+                  override val content: String,
+                  override val box: Box,
+                  val tab: Tab) : ScannedElement<String> {
     override fun toString(): String {
-        return "Word(id='$id'): $content"
+        return "Word('$id', $box, $tab): $content"
     }
 
     fun toDocumentString(): String {
