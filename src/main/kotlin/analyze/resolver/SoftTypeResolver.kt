@@ -1,14 +1,16 @@
 package analyze.resolver
 
+import analyze.resolver.checker.CountChecker
 import analyze.resolver.checker.PriceChecker
-import analyze.resolver.checker.TypeChecker
 import data.document.ScannedWord
 import data.document.TokenType
 
 object SoftTypeResolver : TypeResolver<List<TokenType>> {
 
-    private val checkers = listOf<TypeChecker>(
-            PriceChecker
+    private val checkers = listOf(
+            PriceChecker,
+            CountChecker
+            // TODO
     )
 
     override fun resolveWord(word: ScannedWord): List<TokenType> {
