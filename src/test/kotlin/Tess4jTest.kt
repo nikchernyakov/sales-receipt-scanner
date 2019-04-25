@@ -1,5 +1,7 @@
 import analyze.scanned.ScannedDocExactAnalyzer
+import analyze.scanned.ScannedDocVarAnalyzer
 import analyze.token.TokenExactAnalyzer
+import analyze.token.TokenVarAnalyzer
 import org.junit.Before
 import org.junit.Test
 import parser.OcrHtmlParser
@@ -11,8 +13,8 @@ const val IMAGE_ROOT_PATH = "src/test/resources/images/"
 class Tess4jTest {
 
     private lateinit var tesseractService: TesseractService
-    private val scannedDocumentAnalyzer = ScannedDocExactAnalyzer()
-    private val tokenAnalyzer = TokenExactAnalyzer()
+    private val scannedDocumentAnalyzer = ScannedDocVarAnalyzer()
+    private val tokenAnalyzer = TokenVarAnalyzer()
 
     @Before
     fun init() {
