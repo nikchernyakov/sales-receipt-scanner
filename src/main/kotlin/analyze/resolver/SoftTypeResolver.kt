@@ -14,6 +14,7 @@ object SoftTypeResolver : TypeResolver<List<TokenType>> {
     )
 
     override fun resolveWord(word: ScannedWord): List<TokenType> {
-        return checkers.mapNotNull { it.check(word) }
+        val result = checkers.mapNotNull { it.check(word) }
+        return if (result.isEmpty()) listOf(TokenType.KEY) else result
     }
 }

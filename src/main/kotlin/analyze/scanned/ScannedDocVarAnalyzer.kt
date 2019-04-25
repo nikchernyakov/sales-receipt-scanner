@@ -18,6 +18,7 @@ class ScannedDocVarAnalyzer : ScannedDocumentAnalyzer<VarToken>() {
             val wordGroupType = StrongTypeResolver.resolveWord(word)
             val candidates = SoftTypeResolver.resolveWord(word)
             currentElement.token = VarToken(wordGroupType, word.tab, candidates)
+            currentElement.token.content = word.content
         }
         return elements
     }

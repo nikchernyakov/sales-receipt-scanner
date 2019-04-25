@@ -2,8 +2,6 @@ package analyze.token
 
 import analyze.item.PurchaseItemBlock
 import data.document.*
-import java.lang.Integer.max
-import java.lang.Integer.min
 
 class TokenVarAnalyzer : TokenAnalyzer<VarToken> {
 
