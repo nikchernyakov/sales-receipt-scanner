@@ -7,6 +7,7 @@ object CountChecker : TypeChecker {
     override fun check(word: ScannedWord): TokenType? {
         if (word.content.length > 4) return null
 
+        // TODO: can contains * or something else like "1*"
         var dotIndex = -1
         word.content.forEachIndexed { index, element ->
             if (element == '.') {

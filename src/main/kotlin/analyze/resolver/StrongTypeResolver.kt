@@ -2,14 +2,16 @@ package analyze.resolver
 
 import data.document.ScannedWord
 import data.document.TokenType
-import utils.isNumber
+import utils.*
 
 object StrongTypeResolver : TypeResolver<TokenType> {
     override fun resolveWord(word: ScannedWord): TokenType {
         return when (true) {
             checkPriceType(word.content) -> TokenType.PRICE
             checkCountType(word.content) -> TokenType.COUNT
-            else -> TokenType.KEY
+            checkKeyType(word.content) -> TokenType.KEY
+            checkWordType(word.content) -> TokenType.WORD
+            else -> TokenType.TRASH
         }
     }
 
@@ -40,5 +42,21 @@ object StrongTypeResolver : TypeResolver<TokenType> {
         }
 
         return true
+    }
+
+    fun checkKeyType(text: String): Boolean {
+        if (text.last() == ':') return true
+
+        return listOf("Стоимость", "Цена", "Скидка")
+                .any { text.contains(it, ignoreCase = true) }
+    }
+
+    fun checkWordType(text: String): Boolean {
+        return text.length < 18 && isWord(text)
+    }
+
+    fun checkPercentType(text: String): Boolean {
+        return text.first().isDigit()
+                && hasNumber(text) && compareSymbolWithList(text.last(), PERCENT_CANDIDATE)
     }
 }

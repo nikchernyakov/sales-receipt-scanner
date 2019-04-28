@@ -57,10 +57,12 @@ class VarToken(): Token() {
 }
 
 enum class TokenType {
+    WORD,
     KEY,
     PRICE,
     TRASH,
     NUMBER,
     COUNT,
+    PERCENT,
     UNKNOWN
 }
