@@ -6,7 +6,10 @@ class AnalyzedDocument<T : Token>(var lines: List<AnalyzedLine<T>>) {
     override fun toString(): String {
         val stringBuilder = StringBuilder()
         stringBuilder.append("AnalyzedDocument:\n")
-        lines.forEach { stringBuilder.append("  ").append(it.toString()).append("\n")}
+        lines.forEachIndexed { index, analyzedLine ->
+            stringBuilder.append("  ")
+                    .append("$index. ").append(analyzedLine.toString()).append("\n")
+        }
 
         return stringBuilder.toString()
     }
