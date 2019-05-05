@@ -1,9 +1,6 @@
 package analyze.resolver
 
-import analyze.resolver.checker.CountChecker
-import analyze.resolver.checker.KeyChecker
-import analyze.resolver.checker.PriceChecker
-import analyze.resolver.checker.WordChecker
+import analyze.resolver.checker.*
 import data.document.ScannedWord
 import data.document.TokenType
 
@@ -13,7 +10,8 @@ object SoftTypeResolver : TypeResolver<List<TokenType>> {
             PriceChecker,
             CountChecker,
             KeyChecker,
-            WordChecker
+            WordChecker,
+            NumberChecker
             // TODO
     )
 
