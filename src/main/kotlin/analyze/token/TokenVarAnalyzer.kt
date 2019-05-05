@@ -90,9 +90,11 @@ class TokenVarAnalyzer : TokenAnalyzer<VarToken> {
     private fun checkPatternLine(startPatternElement: ItemElementPattern,
                                  startElement: AnalyzedElement<VarToken>,
                                  purchaseItem: PurchaseItem): Boolean {
-        var currentPatternElement = startPatternElement
+        var nullablePatternIterator: ItemElementPattern? = startPatternElement
+        var currentPatternElement: ItemElementPattern
         var currentElement = startElement
-        while (currentPatternElement.neighbor.hasNext()) {
+        while (nullablePatternIterator != null) {
+            currentPatternElement = nullablePatternIterator
             while (!ItemElementUtils.checkElementToken(currentPatternElement.tokenType, currentElement.token)) {
                 if (!currentElement.neighbor.hasNext()) {
                     return false
@@ -102,7 +104,7 @@ class TokenVarAnalyzer : TokenAnalyzer<VarToken> {
             // Fill PurchaseItem
             ItemElementUtils.resolveElement(currentPatternElement.tokenType, purchaseItem, currentElement)
 
-            currentPatternElement = currentPatternElement.neighbor.next!!
+            nullablePatternIterator = currentPatternElement.neighbor.next
         }
         return true
     }
@@ -155,7 +157,7 @@ class TokenVarAnalyzer : TokenAnalyzer<VarToken> {
         lines.forEachIndexed { lineIndex, line ->
             // Get index of price token that further than PRICE_TAB_INDEX
             val tokenIndex = line.elements.indexOfLast { it.token.candidates.contains(TokenType.PRICE) }
-            if (line.elements[tokenIndex].token.tab.index >= PRICE_TAB_INDEX) {
+            if (tokenIndex >= 0 && line.elements[tokenIndex].token.tab.index >= PRICE_TAB_INDEX) {
                 priceColumn.add(Pair(lineIndex, tokenIndex))
             }
         }

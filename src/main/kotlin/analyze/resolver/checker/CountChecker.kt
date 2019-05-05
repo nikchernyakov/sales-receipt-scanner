@@ -22,6 +22,6 @@ object CountChecker : TypeChecker {
         return if (dotIndex == -1
                 || dotIndex in 1 until (word.content.lastIndex - 1)
                 || hasStar)
-            TokenType.PRICE else null
+            TokenType.COUNT else null
     }
 }

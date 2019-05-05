@@ -10,6 +10,8 @@ object PriceChecker : TypeChecker {
         var hasDot = false
         word.content.forEachIndexed { _, element ->
             if (element == '.') {
+                // Check if dot already was
+                if (hasDot) return null
                 hasDot = true
             } else {
                 if (!element.isDigit()) return null

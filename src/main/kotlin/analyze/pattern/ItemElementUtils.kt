@@ -21,12 +21,18 @@ abstract class DefaultResolver: ItemElementResolver {
 object NameResolver: DefaultResolver() {
 
     override fun resolve(item: PurchaseItem, element: AnalyzedElement<VarToken>) {
+        var currentElement = element
         // Get full name
         val contentBuilder: StringBuilder = StringBuilder()
-        while (element.token.candidates.contains(TokenType.WORD)) {
-            contentBuilder.append(element.token.content)
+        while (currentElement.token.candidates.contains(TokenType.WORD)) {
+            contentBuilder.append(currentElement.token.content).append(" ")
+            if (currentElement.neighbor.hasNext()) {
+                currentElement = currentElement.neighbor.next!!
+            } else {
+                break
+            }
         }
-        applyToItem(item, contentBuilder.toString())
+        applyToItem(item, contentBuilder.toString().trim())
     }
 
     override fun applyToItem(item: PurchaseItem, content: String) {
