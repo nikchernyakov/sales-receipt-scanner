@@ -64,5 +64,8 @@ enum class TokenType {
     NUMBER,
     COUNT,
     PERCENT,
-    UNKNOWN
+    UNKNOWN,
+    TOTAL_PRICE,
+    ADDITIONAL_PRICE,
+    NAME
 }

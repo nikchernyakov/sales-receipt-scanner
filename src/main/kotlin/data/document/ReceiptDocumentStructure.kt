@@ -6,9 +6,18 @@ class ReceiptDocument(val shopInfo: ShopInfo,
 class PurchaseInfo(val total: Float,
                    val items: MutableList<PurchaseItem>)
 
-class PurchaseItem(val itemName: String,
-                   val itemCount: Int,
-                   val price: Float){
+class PurchaseItem() {
+
+    var itemName: String = ""
+    var itemCount: Int = 1
+    var price: Float = 0f
+
+    constructor(_itemName: String, _itemCount: Int, _price: Float) : this() {
+        itemName =_itemName
+        itemCount = _itemCount
+        price = _price
+    }
+
     override fun toString(): String {
         return "PurchaseItem(itemName='$itemName', itemCount=$itemCount, price=$price)"
     }
