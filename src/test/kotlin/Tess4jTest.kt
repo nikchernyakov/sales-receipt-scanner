@@ -46,6 +46,7 @@ class Tess4jTest {
         val scannedDocument = OcrHtmlParser.parseOcrHtml(ocrHtmlContent)
         println(scannedDocument.toString())
         val analyzedDocument = scannedDocumentAnalyzer.analyzeDocument(scannedDocument)
+        println(analyzedDocument.toString())
         val result = tokenAnalyzer.analyzeItems(analyzedDocument)
         result.forEach { println(it.toString()) }
     }

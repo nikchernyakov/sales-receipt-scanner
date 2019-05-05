@@ -18,6 +18,7 @@ object ItemPatternFactory {
 
                 elementsPattern.add(ItemElementPattern(tokenType))
             }
+            linesPattern.add(ItemLinePattern(elementsPattern))
         }
 
         // Fill neighbors
