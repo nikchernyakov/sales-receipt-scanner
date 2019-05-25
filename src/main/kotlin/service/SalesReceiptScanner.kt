@@ -9,9 +9,9 @@ import parser.OcrHtmlParser
 import tess.TesseractService
 import java.io.File
 
-class SalesReceiptScanner {
+class SalesReceiptScanner(tessDataPath: String) {
 
-    private var tesseractService = TesseractService()
+    private var tesseractService = TesseractService(tessDataPath)
     private val scannedDocumentAnalyzer = ScannedDocVarAnalyzer()
     private val tokenAnalyzer = TokenVarAnalyzer()
 

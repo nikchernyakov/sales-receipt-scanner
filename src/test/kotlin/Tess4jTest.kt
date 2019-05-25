@@ -1,6 +1,4 @@
-import analyze.scanned.ScannedDocExactAnalyzer
 import analyze.scanned.ScannedDocVarAnalyzer
-import analyze.token.TokenExactAnalyzer
 import analyze.token.TokenVarAnalyzer
 import org.junit.Before
 import org.junit.Test
@@ -18,7 +16,7 @@ class Tess4jTest {
 
     @Before
     fun init() {
-        tesseractService = TesseractService()
+        tesseractService = TesseractService("src/test/resources/tess4j/data")
     }
 
     @Test

@@ -2,14 +2,14 @@ package tess
 
 import net.sourceforge.tess4j.Tesseract1
 import net.sourceforge.tess4j.TesseractException
-import net.sourceforge.tess4j.util.LoadLibs
 import java.io.File
 
-class TesseractService {
+class TesseractService(dataPath: String) {
 
     private var tesseractInstance: Tesseract1 = Tesseract1()
 
     init {
+        tesseractInstance.setDatapath(dataPath)
         tesseractInstance.setLanguage("rus")
         tesseractInstance.setHocr(true)
     }

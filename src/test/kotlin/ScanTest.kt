@@ -9,7 +9,7 @@ class ScanTest {
 
     @Before
     fun init() {
-        salesReceiptScanner = SalesReceiptScanner()
+        salesReceiptScanner = SalesReceiptScanner("src/test/resources/tess4j/data")
     }
 
     @Test
