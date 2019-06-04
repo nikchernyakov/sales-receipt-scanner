@@ -13,7 +13,8 @@ object ItemPatternFactory {
             val elementsPattern = ArrayList<ItemElementPattern>(linePattern.size)
             linePattern.forEach { tokenType ->
                 // Search for first price in pattern
-                if (firstPriceLineIndex == -1 && tokenType == TokenType.PRICE)
+                if (firstPriceLineIndex == -1 &&
+                        (tokenType == TokenType.TOTAL_PRICE || tokenType == TokenType.ADDITIONAL_PRICE))
                     firstPriceLineIndex = lineIndex
 
                 elementsPattern.add(ItemElementPattern(tokenType))
