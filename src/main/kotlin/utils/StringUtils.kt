@@ -15,8 +15,12 @@ fun hasNumber(string: String): Boolean {
     var hasNum = false
     string.forEach {
         val isDigit = it.isDigit()
-        if (isDigit && !hasNum) hasNum = true
-        if (isDigit && hasNum && !isPreviousDigit) return false
+        if (isDigit && !hasNum) {
+            hasNum = true
+        }
+        else if (isDigit && hasNum && !isPreviousDigit) {
+            return false
+        }
 
         isPreviousDigit = isDigit
     }

@@ -7,7 +7,7 @@ import data.document.*
 class TokenVarAnalyzer : TokenAnalyzer<VarToken> {
 
     // First tab index where price can be
-    private val PRICE_TAB_INDEX = 16
+    private val PRICE_TAB_INDEX = 13
 
     // To exclude
     private val MAX_LINES_DIFFERENCE = 3

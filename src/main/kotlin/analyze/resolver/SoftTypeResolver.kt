@@ -11,7 +11,8 @@ object SoftTypeResolver : TypeResolver<List<TokenType>> {
             CountChecker,
             KeyChecker,
             WordChecker,
-            NumberChecker
+            NumberChecker,
+            PercentChecker
             // TODO
     )
 

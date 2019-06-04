@@ -5,10 +5,8 @@ import data.document.TokenType
 
 object NumberChecker : TypeChecker {
     override fun check(word: ScannedWord): TokenType? {
-        if (word.content.length < 3) return null
-
-        word.content.forEach { element ->
-            if (!element.isDigit()) return null
+        word.content.forEachIndexed { index, element ->
+            if (!element.isDigit() && !(index == word.content.length - 1 && element == '.')) return null
         }
 
         return TokenType.NUMBER
