@@ -27,4 +27,24 @@ class SalesReceiptScanner(tessDataPath: String) {
                 PurchaseInfo(0f, result.toMutableList()))
     }
 
+    fun doScan(imageFile: File, resultFile: File): ReceiptDocument {
+        var resultTime = 0f
+        var startTime = System.currentTimeMillis()
+        val ocrHtmlContent = tesseractService.doOcr(imageFile)
+        val scannedDocument = OcrHtmlParser.parseOcrHtml(ocrHtmlContent)
+        resultTime += System.currentTimeMillis() - startTime
+        resultFile.appendText(scannedDocument.toString() + "\n\n\n")
+        startTime = System.currentTimeMillis()
+        val analyzedDocument = scannedDocumentAnalyzer.analyzeDocument(scannedDocument)
+        resultTime += System.currentTimeMillis() - startTime
+        resultFile.appendText(analyzedDocument.toString() + "\n\n\n")
+        startTime = System.currentTimeMillis()
+        val result = tokenAnalyzer.analyzeItems(analyzedDocument)
+        resultTime += System.currentTimeMillis() - startTime
+        //result.forEach { resultFile.writeText((it.toString() + "\n")) }
+        resultFile.appendText("Test time: ${resultTime/1000} \n\n")
+        return ReceiptDocument(ShopInfo("Not implemented yet"),
+                PurchaseInfo(0f, result.toMutableList()))
+    }
+
 }
