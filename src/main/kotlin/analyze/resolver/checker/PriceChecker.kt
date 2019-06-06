@@ -12,7 +12,7 @@ object PriceChecker : TypeChecker {
         var digitPassed = false
         var endPassed = false
         word.content.forEachIndexed { _, element ->
-            if (digitPassed && element == '.') {
+            if (digitPassed && (element == '.' || element == ',')) {
                 // Check if dot already was
                 if (hasDot) return null
                 hasDot = true
